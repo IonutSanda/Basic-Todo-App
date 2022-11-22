@@ -1,7 +1,8 @@
-import { ManageTodoService } from './../../shared/manage-todo.service';
-import { Todo } from './../../shared/todo.model';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ManageTodoService } from './../../shared/manage-todo.service';
+import { Todo } from './../../shared/todo.model';
 
 @Component({
   selector: 'app-task-edit',
@@ -19,7 +20,7 @@ export class TaskEditComponent implements OnInit {
   titleInput: string = '';
   descInput: string = '';
 
-  constructor(private todoService: ManageTodoService) { }
+  constructor(private todoService: ManageTodoService, private router: Router) { }
 
   ngOnInit(): void {
     this.currentTodo = this.todoService.getCurrentTodo();
@@ -33,10 +34,10 @@ export class TaskEditComponent implements OnInit {
       this.todoService.addTodo(this.todoForm.value);      
     }
     this.onResetForm();
+    this.router.navigate(['/..']);
   }
   
   onResetForm(){
-    // console.log(this.currentTodo);
     this.todoForm.reset();
   }
   

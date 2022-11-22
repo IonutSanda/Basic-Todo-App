@@ -1,11 +1,8 @@
 import {
-  EventEmitter,
-  Injectable,
-  Output
+  Injectable
 } from '@angular/core';
 import {
-  Subject,
-  BehaviorSubject
+  BehaviorSubject, Subject
 } from 'rxjs';
 import {
   Todo
@@ -46,8 +43,11 @@ export class ManageTodoService {
 
   updateTodo(todo: Todo, newTodo: Todo) {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
-    const updatedTodo = {...newTodo, status: todo.status}
-   
+    const updatedTodo = {
+      ...newTodo,
+      status: todo.status
+    }
+
     this.todos[index] = updatedTodo;
     this.todoSub.next(this.todos.slice());
   }

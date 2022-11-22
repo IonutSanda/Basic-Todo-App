@@ -6,7 +6,7 @@
     <input type="text" class="form-control" name="description" id="description" placeholder="What to do...what to do" formControlName="description"/>
   </div>
   <div class="actions">
-    <button type="submit" class="btn btn-success">{{isEditmode ? 'Update' : 'Save'}}</button>
+    <button type="submit" class="btn btn-success" [disabled]="!todoForm.valid">{{isEditmode ? 'Update' : 'Save'}}</button>
     <button type="button" class="btn btn-secondary" (click)="onResetForm()">Reset</button>
   </div>
 </form>

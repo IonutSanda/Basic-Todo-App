@@ -14,6 +14,10 @@ form{
     justify-content: space-around;
 }
 
+input.ng-invalid.ng-touched{
+    border: 1px solid lightcoral;
+}
+
 button:active {
     transform: translateY(4px);
   }
