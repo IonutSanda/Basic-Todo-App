@@ -14,11 +14,24 @@ import {
 
 const routes: Routes = [{
     path: '',
-    redirectTo: '/todos',
+    redirectTo: '/open',
     pathMatch: 'full'
   },
   {
     path: 'todos',
+    component: TasksListComponent,
+  },
+  {
+    path: 'open',
+    component: TasksListComponent,
+  },
+  {
+    path: 'closed',
+    component: TasksListComponent,
+  },
+  {
+
+    path: 'deleted',
     component: TasksListComponent,
   },
   {

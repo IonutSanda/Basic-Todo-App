@@ -5,7 +5,8 @@
     <p>{{todo.description}}</p>
   </div>
   <div class="action-buttons">
-    <button type="button" class="btn btn-primary">Done</button>
+    <button type="button" class="btn btn-primary" (click)="onDoneTodo(todo)">Done</button>
     <button type="button" class="btn btn-danger" (click)="onDeleteTodo(todo)">Delete</button>
+    <button type="button" class="btn btn-warning" (click)="onReOpenTodo(todo)">Re-Open</button>
   </div>
 </div>

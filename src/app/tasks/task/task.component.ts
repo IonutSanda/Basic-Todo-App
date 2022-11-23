@@ -17,8 +17,18 @@ export class TaskComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onDoneTodo(todo: Todo){
+    const statusUpdate = {...todo, status: 'closed'}
+    this.todoService.updateTodo(todo, statusUpdate);
+  }
+
   onDeleteTodo(todo: Todo){
     this.todoService.deleteTodo(todo);
+  }
+
+  onReOpenTodo(todo: Todo){
+    const statusUpdate = {...todo, status: 'open'}
+    this.todoService.updateTodo(todo, statusUpdate);
   }
 
   onSetIsEditMode(){
@@ -26,6 +36,5 @@ export class TaskComponent implements OnInit {
     this.todoService.currentTodo.next(this.todo);
     this.router.navigate(['/new']);
   }
-
 
 }

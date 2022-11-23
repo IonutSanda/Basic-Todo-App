@@ -36,6 +36,14 @@ export class ManageTodoService {
     return this.todos[index];
   }
 
+  getTodosByStatus(status: string){
+    let newArray = this.todos.filter((sts) => {
+      return sts.status === status
+    })
+    this.todoSub.next(newArray);
+    return newArray;
+  }
+
   getCurrentTodo() {
     this.currentTodo.subscribe((todo) => this.editTodo = todo);
     return this.editTodo;
@@ -43,19 +51,13 @@ export class ManageTodoService {
 
   updateTodo(todo: Todo, newTodo: Todo) {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
-    const updatedTodo = {
-      ...newTodo,
-      status: todo.status
-    }
-
-    this.todos[index] = updatedTodo;
+   
+    this.todos[index] = newTodo;
     this.todoSub.next(this.todos.slice());
   }
 
   deleteTodo(todo: Todo) {
-    const index = this.todos.indexOf(todo);
     todo.status = 'deleted';
-    this.todos.splice(index, 1);
     this.todoSub.next(this.todos.slice());
   }
 }
