@@ -32,8 +32,8 @@ export class TaskComponent implements OnInit {
   }
 
   onSetIsEditMode(){
-    this.todoService.isEditMode.next(true);
-    this.todoService.currentTodo.next(this.todo);
+    this.todoService.setIsEditMode(true)
+    this.todoService.setCurrentTodo(this.todo);
     this.router.navigate(['/new']);
   }
 

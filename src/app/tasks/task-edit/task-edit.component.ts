@@ -33,7 +33,7 @@ export class TaskEditComponent implements OnInit {
     } else {
       this.todoService.addTodo(this.todoForm.value);      
     }
-    this.todoService.isEditMode.next(false);
+    this.todoService.setIsEditMode(false);
     this.onResetForm();
     this.router.navigate(['/..']);
   }
@@ -43,7 +43,7 @@ export class TaskEditComponent implements OnInit {
   }
   
   private initForm(){
-    this.todoService.isEditMode.subscribe(bool => this.isEditmode = bool);
+    this.todoService.isEditModeObs.subscribe(bool => this.isEditmode = bool);
    
     if(this.isEditmode){
       this.currentTodo = this.todoService.getCurrentTodo();

@@ -18,10 +18,12 @@ export class ManageTodoService {
   todoObs = this.todoSub.asObservable();
   private searchTermSub = new Subject<string>();
   searchTermObs = this.searchTermSub.asObservable();
-  currentTodo = new Subject < Todo > ();
-  isEditMode = new BehaviorSubject < boolean > (false);
+  private isEditMode = new BehaviorSubject < boolean > (false);
+  isEditModeObs = this.isEditMode.asObservable();
+  private currentTodo = new Subject < Todo > ();
+  currentTodoObs = this.currentTodo.asObservable();
   editTodo!: Todo;
-
+  
 
   constructor() {}
 
@@ -44,7 +46,6 @@ export class ManageTodoService {
     let newArray = this.todos.filter((sts) => {
       return sts.status === status
     })
-    // this.todoSub.next(newArray);
     return newArray;
   }
 
@@ -73,6 +74,14 @@ export class ManageTodoService {
 
   searchTerm(searchTerm: string){
     this.searchTermSub.next(searchTerm);
+  }
+
+  setIsEditMode(isEditMode: boolean){
+    this.isEditMode.next(isEditMode);
+  }
+
+  setCurrentTodo(currentTodo: Todo){
+    this.currentTodo.next(currentTodo);
   }
 
 }
