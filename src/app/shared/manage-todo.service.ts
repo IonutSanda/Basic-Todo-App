@@ -55,8 +55,13 @@ export class ManageTodoService {
 
   updateTodo(todo: Todo, newTodo: Todo) {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
-   
-    this.todos[index] = {...newTodo, status: todo.status};
+    // let newStatus;
+    // if(this.isEditMode){
+    //   newStatus = todo.status
+    // } else {
+    //   newStatus = 'open'
+    // }
+    this.todos[index] = {...newTodo, status: newTodo.status};
     this.todoSub.next([...this.todos]);
   }
 

@@ -19,7 +19,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
   constructor(private todoService: ManageTodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.todoSubscription = this.todoService.todoObs.subscribe(() => {
+    this.todoService.todoObs.subscribe(() => {
       this.filterTodos()
     })
     this.filterTodos();
@@ -27,7 +27,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-      this.todoSubscription.unsubscribe();
+      // this.todoSubscription.unsubscribe();
     }
 
   private filterTodos(){

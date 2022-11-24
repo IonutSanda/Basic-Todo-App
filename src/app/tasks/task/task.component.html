@@ -1,6 +1,6 @@
 <div class="todo">
   <div class="text-body">
-    <span><h5>{{todo.name}}</h5><button type="button" class="btn btn-secondary" (click)="onSetIsEditMode()">Edit</button></span>
+    <span><h5>{{todo.name}}</h5><button *ngIf="todo.status === 'open'" type="button" class="btn btn-secondary" (click)="onSetIsEditMode()">Edit</button></span>
     <hr>
     <p>{{todo.description}}</p>
   </div>

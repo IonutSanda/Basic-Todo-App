@@ -1,5 +1,5 @@
 
 <div class="todos">
     <!-- <button type="button" (click)="onTestSearch()"> Test </button> -->
-<app-task *ngFor="let todo of todos | filterByName: searchTerm" [todo]="todo"></app-task>
+<app-task *ngFor="let todo of todos" [todo]="todo"></app-task>
 </div>
