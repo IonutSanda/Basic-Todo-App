@@ -14,10 +14,14 @@ import {
 export class ManageTodoService {
 
   todos: Todo[] = [];
-  todoSub = new Subject < Todo[] > ;
+  private todoSub = new Subject < Todo[] > ;
+  todoObs = this.todoSub.asObservable();
+  private searchTermSub = new Subject<string>();
+  searchTermObs = this.searchTermSub.asObservable();
   currentTodo = new Subject < Todo > ();
   isEditMode = new BehaviorSubject < boolean > (false);
   editTodo!: Todo;
+
 
   constructor() {}
 
@@ -28,7 +32,7 @@ export class ManageTodoService {
   }
 
   getTodos() {
-    return this.todos.slice();
+    return [...this.todos];
   }
 
   getTodoByName(todo: Todo) {
@@ -40,7 +44,7 @@ export class ManageTodoService {
     let newArray = this.todos.filter((sts) => {
       return sts.status === status
     })
-    this.todoSub.next(newArray);
+    // this.todoSub.next(newArray);
     return newArray;
   }
 
@@ -52,12 +56,17 @@ export class ManageTodoService {
   updateTodo(todo: Todo, newTodo: Todo) {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
    
-    this.todos[index] = newTodo;
-    this.todoSub.next(this.todos.slice());
+    this.todos[index] = {...newTodo, status: todo.status};
+    this.todoSub.next([...this.todos]);
   }
 
   deleteTodo(todo: Todo) {
     todo.status = 'deleted';
-    this.todoSub.next(this.todos.slice());
+    this.todoSub.next([...this.todos]);
   }
+
+  searchTerm(searchTerm: string){
+    this.searchTermSub.next(searchTerm);
+  }
+
 }

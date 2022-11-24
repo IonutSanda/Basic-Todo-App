@@ -1,26 +1,33 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { ManageTodoService } from './../../shared/manage-todo.service';
 import { Todo } from './../../shared/todo.model';
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { compileInjectable } from '@angular/compiler';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-tasks-list',
   templateUrl: './tasks-list.component.html',
   styleUrls: ['./tasks-list.component.scss']
 })
-export class TasksListComponent implements OnInit {
+export class TasksListComponent implements OnInit, OnDestroy {
 
   todos: Todo[] = [];
-
+  searchTerm!: string;
+  todoSubscription = new Subscription(); 
   constructor(private todoService: ManageTodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-      this.todoService.todoSub.subscribe((todos) => {
-        this.todos = todos;
-      })
-      this.todos = this.todoService.getTodos();
+    this.todoSubscription = this.todoService.todoObs.subscribe(() => {
       this.filterTodos()
+    })
+    this.filterTodos();
+    this.onTestSearch();
+    }
+
+    ngOnDestroy(): void {
+      this.todoSubscription.unsubscribe();
     }
 
   private filterTodos(){
@@ -28,11 +35,15 @@ export class TasksListComponent implements OnInit {
     const filter = this.route.snapshot.url[0].path;
     if(filter === 'todos'){
       this.todos = this.todoService.getTodos();
-      this.todoService.todoSub.next(this.todos);
     } else {
       this.todos = this.todoService.getTodosByStatus(filter);
-      this.todoService.todoSub.next(this.todos);
     }
+  }
+
+  onTestSearch(){
+    this.todoService.searchTermObs.subscribe((searchTerm) => {
+      this.searchTerm = searchTerm;
+    })
   }
 
 }

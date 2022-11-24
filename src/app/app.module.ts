@@ -8,7 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { TasksListComponent } from './tasks/tasks-list/tasks-list.component';
 import { TaskComponent } from './tasks/task/task.component';
 import { TaskEditComponent } from './tasks/task-edit/task-edit.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FilterByNamePipe } from './shared/filter-by-name.pipe';
 
 @NgModule({
   declarations: [
@@ -16,13 +17,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     TasksListComponent,
     TaskComponent,
-    TaskEditComponent
+    TaskEditComponent,
+    FilterByNamePipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
