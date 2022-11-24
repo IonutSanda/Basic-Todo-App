@@ -16,7 +16,7 @@ export class TaskEditComponent implements OnInit {
     description: new FormControl(null, Validators.required)
   });
   currentTodo!: Todo;
-  isEditmode!: boolean;
+  isEditmode: boolean = false;
   titleInput: string = '';
   descInput: string = '';
 

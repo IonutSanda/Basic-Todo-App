@@ -61,7 +61,16 @@ export class ManageTodoService {
     // } else {
     //   newStatus = 'open'
     // }
-    this.todos[index] = {...newTodo, status: newTodo.status};
+    // let newStatus;
+    // if(newTodo.status === 'closed'){
+    //   newStatus = 'open'
+    // } else { 
+    //   newStatus = todo.status;
+    // }
+    
+    this.todos[index] = {...newTodo, status: todo.status};
+    console.log('index of todo');
+    console.log(this.todos[index]);
     this.todoSub.next([...this.todos]);
   }
 
