@@ -16,7 +16,7 @@ export class TaskEditComponent implements OnInit {
     description: new FormControl(null, Validators.required)
   });
   currentTodo!: Todo;
-  isEditmode: boolean = false;
+  isEditmode!: boolean;
   titleInput: string = '';
   descInput: string = '';
 
@@ -29,10 +29,11 @@ export class TaskEditComponent implements OnInit {
   
   onSubmit(){
     if(this.isEditmode){
-      this.todoService.updateTodo(this.currentTodo, this.todoForm.value);      
+      this.todoService.updateTodo(this.currentTodo, {...this.todoForm.value, status: this.currentTodo.status});      
     } else {
       this.todoService.addTodo(this.todoForm.value);      
     }
+    this.todoService.isEditMode.next(false);
     this.onResetForm();
     this.router.navigate(['/..']);
   }

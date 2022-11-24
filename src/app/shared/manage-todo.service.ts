@@ -55,22 +55,14 @@ export class ManageTodoService {
 
   updateTodo(todo: Todo, newTodo: Todo) {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
-    // let newStatus;
-    // if(this.isEditMode){
-    //   newStatus = todo.status
-    // } else {
-    //   newStatus = 'open'
-    // }
-    // let newStatus;
-    // if(newTodo.status === 'closed'){
-    //   newStatus = 'open'
-    // } else { 
-    //   newStatus = todo.status;
-    // }
-    
-    this.todos[index] = {...newTodo, status: todo.status};
-    console.log('index of todo');
-    console.log(this.todos[index]);
+
+    let newStatus;
+    if(!this.isEditMode){
+      newStatus = todo.status;
+    } else {
+      newStatus = newTodo.status;
+    }
+    this.todos[index] = {...newTodo, status: newStatus};
     this.todoSub.next([...this.todos]);
   }
 
