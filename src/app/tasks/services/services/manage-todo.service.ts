@@ -2,7 +2,7 @@ import {
   Injectable
 } from '@angular/core';
 import {
-  BehaviorSubject, Subject
+  BehaviorSubject, Observable, Observer, Subject
 } from 'rxjs';
 import {
   Todo
@@ -15,20 +15,23 @@ import{ HttpClient } from '@angular/common/http'
 export class ManageTodoService {
 
   todos: Todo[] = [];
+
   private todoSub = new Subject < Todo[] > ;
-  todoObs = this.todoSub.asObservable();
   private searchTermSub = new Subject<string>();
-  searchTermObs = this.searchTermSub.asObservable();
   private isEditMode = new BehaviorSubject < boolean > (false);
-  isEditModeObs = this.isEditMode.asObservable();
   private currentTodo = new Subject < Todo > ();
+
+  todoObs = this.todoSub.asObservable();
+  searchTermObs = this.searchTermSub.asObservable();
+  isEditModeObs = this.isEditMode.asObservable();
   currentTodoObs = this.currentTodo.asObservable();
+  
   editTodo!: Todo;
   
   private url = 'https://todoproject-a5d86-default-rtdb.firebaseio.com/todos.json';
   constructor(private http: HttpClient) {}
 
-  addTodo(todo: Todo) {
+  addTodo(todo: Todo):void {
     const newTodo = new Todo(todo.name, todo.description, todo.status = 'open')
     this.todos.push(newTodo);
     this.http.post<Todo>(this.url, newTodo).subscribe();
@@ -36,28 +39,27 @@ export class ManageTodoService {
   }
 
   getTodos() {
-    // return [...this.todos];
     return this.http.get(this.url);
   }
 
-  getTodoByName(todo: Todo) {
+  getTodoByName(todo: Todo):Todo {
     const index = this.todos.indexOf(todo);
     return this.todos[index];
   }
 
-  getTodosByStatus(status: string){
+  getTodosByStatus(status: string):Todo[]{
     let newArray = this.todos.filter((sts) => {
       return sts.status === status
     })
     return newArray;
   }
 
-  getCurrentTodo() {
+  getCurrentTodo():Todo {
     this.currentTodo.subscribe((todo) => this.editTodo = todo);
     return this.editTodo;
   }
 
-  updateTodo(todo: Todo, newTodo: Todo) {
+  updateTodo(todo: Todo, newTodo: Todo):void {
     const index = this.todos.findIndex(obj => obj.name === todo.name);
 
     let newStatus;
@@ -70,20 +72,20 @@ export class ManageTodoService {
     this.todoSub.next([...this.todos]);
   }
 
-  deleteTodo(todo: Todo) {
+  deleteTodo(todo: Todo):void {
     todo.status = 'deleted';
     this.todoSub.next([...this.todos]);
   }
 
-  searchTerm(searchTerm: string){
+  searchTerm(searchTerm: string):void{
     this.searchTermSub.next(searchTerm);
   }
 
-  setIsEditMode(isEditMode: boolean){
+  setIsEditMode(isEditMode: boolean):void{
     this.isEditMode.next(isEditMode);
   }
 
-  setCurrentTodo(currentTodo: Todo){
+  setCurrentTodo(currentTodo: Todo):void{
     this.currentTodo.next(currentTodo);
   }
 

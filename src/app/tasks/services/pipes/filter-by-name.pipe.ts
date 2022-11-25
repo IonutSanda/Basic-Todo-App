@@ -6,7 +6,7 @@ import { Todo } from '../models/todo.model';
 })
 export class FilterByNamePipe implements PipeTransform {
 
-  transform(todos: Todo[], searchTerm: string) {
+  transform(todos: Todo[], searchTerm: string):Todo[] {
     if(!todos) return [];
     if(!searchTerm) return todos;
     return todos.filter(text => {

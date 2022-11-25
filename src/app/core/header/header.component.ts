@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ManageTodoService } from '../../tasks/services/services/manage-todo.service';
 
@@ -7,16 +7,13 @@ import { ManageTodoService } from '../../tasks/services/services/manage-todo.ser
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
 
   constructor(private todoService: ManageTodoService) { }
 
   searchTerm: FormGroup = new FormGroup({searchTermInput: new FormControl()});
 
-  ngOnInit(): void {
-  }
-
-  onSearchTerm(){
+  onSearchTerm(): void{
     const searchTerm = this.searchTerm.get('searchTermInput')?.value
     this.todoService.searchTerm(searchTerm);
   }
