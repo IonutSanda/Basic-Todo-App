@@ -33,24 +33,26 @@ export class ManageTodoService {
 
   addTodo(todo: Todo):void {
     const newTodo = new Todo(todo.name, todo.description, todo.status = 'open');
-    // this.todos.push(newTodo);
-    this.http.post<Todo>(this.url, newTodo).subscribe();
+    this.todos.push(newTodo);
+    // this.http.post<Todo>(this.url, newTodo).subscribe();
     this.todoSub.next(this.todos);
   }
 
-  getTodos():Observable<Todo[]> {
-    return this.http.get<Todo[]>(this.url).pipe(
-      map((todos)=>{
-        const todosArray: Todo[] = [];
-        for(const key in todos){
-          if(todos.hasOwnProperty(key)){
-            todosArray.push(todos[key]);
-          }
-        };
-        this.todos = todosArray;
-        return todosArray;
-      })
-    );
+  getTodos():Todo[]{
+  // getTodos():Observable<Todo[]> {
+    // return this.http.get<Todo[]>(this.url).pipe(
+    //   map((todos)=>{
+    //     const todosArray: Todo[] = [];
+    //     for(const key in todos){
+    //       if(todos.hasOwnProperty(key)){
+    //         todosArray.push(todos[key]);
+    //       }
+    //     };
+    //     this.todos = todosArray;
+    //     return todosArray;
+    //   })
+    // );
+    return [...this.todos];
   }
 
   getTodoByName(todo: Todo):Todo {

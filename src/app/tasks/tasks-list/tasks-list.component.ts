@@ -19,11 +19,14 @@ export class TasksListComponent implements OnInit, OnDestroy {
   constructor(private todoService: ManageTodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    // this.todoService.getTodos().subscribe((todos) => {
+    //   this.todos = todos
+    //   this.filterTodos();
+    // });
     this.todoSubscription = this.todoService.todoObs.subscribe(() => {
       this.filterTodos();
     });
     this.filterTodos();
-
     this.searchTermSubscription = this.todoService.searchTermObs.subscribe((searchTerm) => {
       this.searchTerm = searchTerm;
     });
@@ -38,7 +41,8 @@ export class TasksListComponent implements OnInit, OnDestroy {
     //has to be improved using query params!
     const filter = this.route.snapshot.url[0].path;
     if(filter === 'todos'){
-      this.todoService.getTodos().subscribe();
+      // this.todoService.getTodos().subscribe();
+      this.todoService.getTodos();
     } else {
       this.todos = this.todoService.getTodosByStatus(filter);
     }
