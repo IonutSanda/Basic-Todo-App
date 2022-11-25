@@ -1,7 +1,9 @@
+import { CoreModule } from './../core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FilterByNamePipe } from './../shared/filter-by-name.pipe';
+import { FilterByNamePipe } from './services/pipes/filter-by-name.pipe';
 import { TasksRouterModule } from './tasks.routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -18,12 +20,14 @@ import { TaskEditComponent } from './task-edit/task-edit.component';
     FilterByNamePipe
   ],
   imports: [
+    CommonModule,
     BrowserModule,
+    CoreModule,
     TasksRouterModule,
     RouterModule,
     ReactiveFormsModule,
     FormsModule,
-    CommonModule,
+    HttpClientModule
   ]
 })
 export class TasksModule { }

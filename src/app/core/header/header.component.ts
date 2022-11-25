@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ManageTodoService } from '../shared/manage-todo.service';
+import { ManageTodoService } from '../../tasks/services/services/manage-todo.service';
 
 @Component({
   selector: 'app-header',

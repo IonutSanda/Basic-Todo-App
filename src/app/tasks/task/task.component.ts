@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManageTodoService } from './../../shared/manage-todo.service';
-import { Todo } from './../../shared/todo.model';
+import { ManageTodoService } from '../services/services/manage-todo.service';
+import { Todo } from '../services/models/todo.model';
 
 @Component({
   selector: 'app-task',

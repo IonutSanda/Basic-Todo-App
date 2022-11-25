@@ -1,6 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router';
-import { ManageTodoService } from './../../shared/manage-todo.service';
-import { Todo } from './../../shared/todo.model';
+import { ManageTodoService } from '../services/services/manage-todo.service';
+import { Todo } from '../services/models/todo.model';
 import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { compileInjectable } from '@angular/compiler';
 import { Subscription } from 'rxjs';

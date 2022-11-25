@@ -6,7 +6,7 @@ import {
 } from 'rxjs';
 import {
   Todo
-} from './todo.model';
+} from '../models/todo.model';
 import{ HttpClient } from '@angular/common/http'
 
 @Injectable({

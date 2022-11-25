@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ManageTodoService } from './../../shared/manage-todo.service';
-import { Todo } from './../../shared/todo.model';
+import { ManageTodoService } from '../services/services/manage-todo.service';
+import { Todo } from '../services/models/todo.model';
 
 @Component({
   selector: 'app-task-edit',
