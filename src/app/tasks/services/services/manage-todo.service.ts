@@ -1,13 +1,13 @@
+import { HttpClient } from '@angular/common/http';
 import {
   Injectable
 } from '@angular/core';
 import {
-  BehaviorSubject, Observable, Observer, Subject
+  BehaviorSubject, map, Observable, Subject
 } from 'rxjs';
 import {
   Todo
 } from '../models/todo.model';
-import{ HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -32,14 +32,25 @@ export class ManageTodoService {
   constructor(private http: HttpClient) {}
 
   addTodo(todo: Todo):void {
-    const newTodo = new Todo(todo.name, todo.description, todo.status = 'open')
-    this.todos.push(newTodo);
+    const newTodo = new Todo(todo.name, todo.description, todo.status = 'open');
+    // this.todos.push(newTodo);
     this.http.post<Todo>(this.url, newTodo).subscribe();
     this.todoSub.next(this.todos);
   }
 
-  getTodos() {
-    return this.http.get(this.url);
+  getTodos():Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.url).pipe(
+      map((todos)=>{
+        const todosArray: Todo[] = [];
+        for(const key in todos){
+          if(todos.hasOwnProperty(key)){
+            todosArray.push(todos[key]);
+          }
+        };
+        this.todos = todosArray;
+        return todosArray;
+      })
+    );
   }
 
   getTodoByName(todo: Todo):Todo {
@@ -49,7 +60,7 @@ export class ManageTodoService {
 
   getTodosByStatus(status: string):Todo[]{
     let newArray = this.todos.filter((sts) => {
-      return sts.status === status
+      return sts.status === status;
     })
     return newArray;
   }

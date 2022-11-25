@@ -27,22 +27,24 @@ export class TaskEditComponent implements OnInit {
     this.initForm();
   }
   
-  onSubmit(){
+  onSubmit():void{
     if(this.isEditmode){
-      this.todoService.updateTodo(this.currentTodo, {...this.todoForm.value, status: this.currentTodo.status});      
+      this.todoService.updateTodo(this.currentTodo, {...this.todoForm.value, status: this.currentTodo.status});     
+      this.todoService.getTodos(); 
     } else {
       this.todoService.addTodo(this.todoForm.value);      
+      this.todoService.getTodos(); 
     }
     this.todoService.setIsEditMode(false);
     this.onResetForm();
     this.router.navigate(['/open']);
   }
   
-  onResetForm(){
+  onResetForm():void{
     this.todoForm.reset();
   }
   
-  private initForm(){
+  private initForm():void{
     this.todoService.isEditModeObs.subscribe(bool => this.isEditmode = bool);
    
     if(this.isEditmode){

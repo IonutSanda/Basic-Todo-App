@@ -1,9 +1,7 @@
-import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CoreModule } from './core/core.module';
 import { TasksModule } from './tasks/tasks.module';
 
 import { AppRoutingModule } from './app-routing.module';

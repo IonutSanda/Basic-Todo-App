@@ -14,7 +14,7 @@ export class HeaderComponent {
   searchTerm: FormGroup = new FormGroup({searchTermInput: new FormControl()});
 
   onSearchTerm(): void{
-    const searchTerm = this.searchTerm.get('searchTermInput')?.value
+    const searchTerm = this.searchTerm.get('searchTermInput')?.value;
     this.todoService.searchTerm(searchTerm);
   }
 

@@ -1,38 +1,36 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { ManageTodoService } from '../services/services/manage-todo.service';
 import { Todo } from '../services/models/todo.model';
+import { ManageTodoService } from '../services/services/manage-todo.service';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent {
 
   @Input() todo!: Todo;
 
   constructor(private todoService: ManageTodoService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
 
-  onDoneTodo(todo: Todo){
-    const statusUpdate = {...todo, status: 'closed'}
+  onDoneTodo(todo: Todo):void{
+    const statusUpdate = {...todo, status: 'closed'};
     this.todoService.updateTodo(todo, statusUpdate);
   }
 
-  onDeleteTodo(todo: Todo){
+  onDeleteTodo(todo: Todo):void{
     this.todoService.deleteTodo(todo);
   }
 
-  onReOpenTodo(todo: Todo){
-    const statusUpdate = {...todo, status: 'open'}
+  onReOpenTodo(todo: Todo):void{
+    const statusUpdate = {...todo, status: 'open'};
     this.todoService.updateTodo(todo, statusUpdate);
   }
 
-  onSetIsEditMode(){
-    this.todoService.setIsEditMode(true)
+  onSetIsEditMode():void{
+    this.todoService.setIsEditMode(true);
     this.todoService.setCurrentTodo(this.todo);
     this.router.navigate(['/new']);
   }

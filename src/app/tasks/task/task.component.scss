@@ -1,24 +1,21 @@
-
-.todo{
-    padding: 20px;
-    margin-left: 20px;
-    border: 1px solid lightgray;
-    border-radius: 15px;
-    min-width: 575px;
+.todo {
+  padding: 20px;
+  margin-left: 20px;
+  border: 1px solid lightgray;
+  border-radius: 15px;
+  min-width: 575px;
 }
 
-.text-body span{
-    display: flex;
-    justify-content: space-between;
+.text-body span {
+  display: flex;
+  justify-content: space-between;
 }
 
-
-
-.action-buttons{
-    display: flex;
-    justify-content: space-around;
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
 }
 
 button:active {
-    transform: translateY(4px);
-  }
+  transform: translateY(4px);
+}
