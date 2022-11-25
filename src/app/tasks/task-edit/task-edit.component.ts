@@ -35,7 +35,7 @@ export class TaskEditComponent implements OnInit {
     }
     this.todoService.setIsEditMode(false);
     this.onResetForm();
-    this.router.navigate(['/..']);
+    this.router.navigate(['/open']);
   }
   
   onResetForm(){

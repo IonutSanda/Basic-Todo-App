@@ -1,7 +1,4 @@
 import {
-  TaskEditComponent
-} from './tasks/task-edit/task-edit.component';
-import {
   TasksListComponent
 } from './tasks/tasks-list/tasks-list.component';
 import {
@@ -20,38 +17,9 @@ const routes: Routes = [{
   {
     path: 'todos',
     component: TasksListComponent,
+    loadChildren: () => import('./tasks/tasks.module').then((m) => m.TasksModule),
   },
-  {
-    path: 'open',
-    component: TasksListComponent,
-  },
-  {
-    path: 'closed',
-    component: TasksListComponent,
-  },
-  {
-
-    path: 'deleted',
-    component: TasksListComponent,
-  },
-  {
-    path: 'new',
-    component: TaskEditComponent,
-  },
-  {
-    path: 'edit',
-    component: TaskEditComponent,
-    children: [
-      {
-        path: ':id',
-        component: TaskEditComponent
-      }
-    ]
-  },
-  {
-    path: '**',
-    component: TasksListComponent
-  }
+  
 
 ];
 

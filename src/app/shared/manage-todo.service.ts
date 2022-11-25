@@ -7,6 +7,7 @@ import {
 import {
   Todo
 } from './todo.model';
+import{ HttpClient } from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -24,17 +25,19 @@ export class ManageTodoService {
   currentTodoObs = this.currentTodo.asObservable();
   editTodo!: Todo;
   
-
-  constructor() {}
+  private url = 'https://todoproject-a5d86-default-rtdb.firebaseio.com/todos.json';
+  constructor(private http: HttpClient) {}
 
   addTodo(todo: Todo) {
     const newTodo = new Todo(todo.name, todo.description, todo.status = 'open')
     this.todos.push(newTodo);
+    this.http.post<Todo>(this.url, newTodo).subscribe();
     this.todoSub.next(this.todos);
   }
 
   getTodos() {
-    return [...this.todos];
+    // return [...this.todos];
+    return this.http.get(this.url);
   }
 
   getTodoByName(todo: Todo) {

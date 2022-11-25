@@ -34,7 +34,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     //has to be improved using query params!
     const filter = this.route.snapshot.url[0].path;
     if(filter === 'todos'){
-      this.todos = this.todoService.getTodos();
+      this.todoService.getTodos().subscribe();
     } else {
       this.todos = this.todoService.getTodosByStatus(filter);
     }
