@@ -21,7 +21,7 @@ export class TaskComponent {
   }
 
   onDeleteTodo(todo: Todo):void{
-    this.todoService.deleteTodo(todo);
+    this.todoService.deleteTodo(todo).subscribe();
   }
 
   onReOpenTodo(todo: Todo):void{

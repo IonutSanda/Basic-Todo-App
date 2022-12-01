@@ -10,8 +10,8 @@ export class FilterByNamePipe implements PipeTransform {
     if(!todos) return [];
     if(!searchTerm) return todos;
     return todos.filter(text => {
-      return text.name.includes(searchTerm) ||
-             text.description.includes(searchTerm);
+      return text.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+             text.description.toLowerCase().includes(searchTerm.toLowerCase());
     });
   }
 

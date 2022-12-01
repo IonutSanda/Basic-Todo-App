@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Todo } from '../services/models/todo.model';
 import { ManageTodoService } from '../services/services/manage-todo.service';
@@ -16,16 +16,18 @@ export class TasksListComponent implements OnInit, OnDestroy {
   searchTerm!: string;
   todoSubscription = new Subscription(); 
   searchTermSubscription = new Subscription()
-  constructor(private todoService: ManageTodoService, private route: ActivatedRoute) { }
+  todosSubscription = new Subscription();
+  constructor(private todoService: ManageTodoService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    // this.todoService.getTodos().subscribe((todos) => {
-    //   this.todos = todos
-    //   this.filterTodos();
-    // });
-    this.todoSubscription = this.todoService.todoObs.subscribe(() => {
+    this.filterTodos();
+    this.todosSubscription = this.todoService.getTodos().subscribe(() => {
+      // this.todos = todos
       this.filterTodos();
     });
+    // this.todoSubscription = this.todoService.todoObs.subscribe(() => {
+    //   this.filterTodos();
+    // });
     this.filterTodos();
     this.searchTermSubscription = this.todoService.searchTermObs.subscribe((searchTerm) => {
       this.searchTerm = searchTerm;
@@ -34,18 +36,23 @@ export class TasksListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.todoSubscription.unsubscribe();
+    this.todoSubscription.unsubscribe();
     this.searchTermSubscription.unsubscribe();
   }
 
   private filterTodos():void{
     //has to be improved using query params!
-    const filter = this.route.snapshot.url[0].path;
-    if(filter === 'todos'){
-      // this.todoService.getTodos().subscribe();
-      this.todoService.getTodos();
+    if(this.route.snapshot.url.length < 1){
+      this.todoService.getTodos().subscribe((todos) => this.todos = todos);
+      this.router.navigate(['open']);
     } else {
-      this.todos = this.todoService.getTodosByStatus(filter);
+      const filter = this.route.snapshot.url[0].path;
+      if(filter === 'todos'){
+        this.todoService.getTodos().subscribe((todos) => this.todos = todos);
+      } else {
+        this.todos = this.todoService.getTodosByStatus(filter);
+      }
     }
-  }
+    }
 
 }

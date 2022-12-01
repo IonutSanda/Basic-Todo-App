@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import {
   Injectable
 } from '@angular/core';
+import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import {
   BehaviorSubject, map, Observable, Subject
 } from 'rxjs';
@@ -16,55 +18,54 @@ export class ManageTodoService {
 
   todos: Todo[] = [];
 
-  private todoSub = new Subject < Todo[] > ;
   private searchTermSub = new Subject<string>();
   private isEditMode = new BehaviorSubject < boolean > (false);
   private currentTodo = new Subject < Todo > ();
 
-  todoObs = this.todoSub.asObservable();
   searchTermObs = this.searchTermSub.asObservable();
   isEditModeObs = this.isEditMode.asObservable();
   currentTodoObs = this.currentTodo.asObservable();
   
   editTodo!: Todo;
-  
+  private baseUrl = 'https://todoproject-a5d86-default-rtdb.firebaseio.com/todos'
   private url = 'https://todoproject-a5d86-default-rtdb.firebaseio.com/todos.json';
   constructor(private http: HttpClient) {}
 
   addTodo(todo: Todo):void {
     const newTodo = new Todo(todo.name, todo.description, todo.status = 'open');
-    this.todos.push(newTodo);
-    // this.http.post<Todo>(this.url, newTodo).subscribe();
-    this.todoSub.next(this.todos);
+    this.http.post<Todo>(this.url, newTodo).subscribe();
   }
 
-  getTodos():Todo[]{
-  // getTodos():Observable<Todo[]> {
-    // return this.http.get<Todo[]>(this.url).pipe(
-    //   map((todos)=>{
-    //     const todosArray: Todo[] = [];
-    //     for(const key in todos){
-    //       if(todos.hasOwnProperty(key)){
-    //         todosArray.push(todos[key]);
-    //       }
-    //     };
-    //     this.todos = todosArray;
-    //     return todosArray;
-    //   })
-    // );
-    return [...this.todos];
+  getTodos():Observable<Todo[]> {
+    return this.http.get<Todo[]>(this.url).pipe(
+      map((todos)=>{
+        const todosArray: Todo[] = [];
+        for(const key in todos){
+          if(todos.hasOwnProperty(key)){
+            todosArray.push({...todos[key], id: key});
+          }
+        };
+        this.todos = todosArray;
+        return this.todos;
+      })
+      )
   }
 
-  getTodoByName(todo: Todo):Todo {
-    const index = this.todos.indexOf(todo);
-    return this.todos[index];
-  }
+    // getTodoByName(todo: Todo):Todo {
+    //   const index = this.todos.indexOf(todo);
+    //   return this.todos[index];
+    // }
+
+    // getTodoById(todoId: string){
+    //   const todoUrl = `${this.baseUrl}/${todoId}.json`;
+    //   return this.http.get(todoUrl)
+    // }
 
   getTodosByStatus(status: string):Todo[]{
-    let newArray = this.todos.filter((sts) => {
+    this.todos = [...this.todos].filter((sts) => {
       return sts.status === status;
     })
-    return newArray;
+    return this.todos;
   }
 
   getCurrentTodo():Todo {
@@ -73,21 +74,21 @@ export class ManageTodoService {
   }
 
   updateTodo(todo: Todo, newTodo: Todo):void {
-    const index = this.todos.findIndex(obj => obj.name === todo.name);
-
     let newStatus;
     if(!this.isEditMode){
       newStatus = todo.status;
     } else {
       newStatus = newTodo.status;
     }
-    this.todos[index] = {...newTodo, status: newStatus};
-    this.todoSub.next([...this.todos]);
+
+    const updatedTodoUrl = `${this.baseUrl}/${todo.id}.json`
+    this.http.patch(updatedTodoUrl, {...newTodo, status: newStatus}).subscribe();
   }
 
-  deleteTodo(todo: Todo):void {
+  deleteTodo(todo: Todo):Observable<Todo> {
     todo.status = 'deleted';
-    this.todoSub.next([...this.todos]);
+    const patchUrl = `${this.baseUrl}/${todo.id}.json`
+    return this.http.patch<Todo>(patchUrl, {"status": todo.status});
   }
 
   searchTerm(searchTerm: string):void{

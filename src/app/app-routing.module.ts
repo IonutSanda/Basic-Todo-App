@@ -11,7 +11,7 @@ import {
 
 const routes: Routes = [{
     path: '',
-    redirectTo: '/open',
+    redirectTo: 'open',
     pathMatch: 'full'
   },
   {
