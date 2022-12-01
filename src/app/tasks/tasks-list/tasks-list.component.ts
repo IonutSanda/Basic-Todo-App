@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Todo } from '../services/models/todo.model';
 import { ManageTodoService } from '../services/services/manage-todo.service';
+import { SpinnerService } from '../services/services/spinner.service';
 
 
 @Component({
@@ -14,16 +15,21 @@ export class TasksListComponent implements OnInit, OnDestroy {
 
   todos: Todo[] = [];
   searchTerm!: string;
+  isLoading$?: Observable<boolean>;
   todoSubscription = new Subscription(); 
   searchTermSubscription = new Subscription()
   todosSubscription = new Subscription();
-  constructor(private todoService: ManageTodoService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private todoService: ManageTodoService, private loadingService: SpinnerService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
+    this.loadingService.showLoading();
+    this.isLoading$ = this.loadingService.loadingObs$;
+
     this.filterTodos();
     this.todosSubscription = this.todoService.getTodos().subscribe(() => {
       // this.todos = todos
       this.filterTodos();
+      this.loadingService.hideLoading();
     });
     // this.todoSubscription = this.todoService.todoObs.subscribe(() => {
     //   this.filterTodos();

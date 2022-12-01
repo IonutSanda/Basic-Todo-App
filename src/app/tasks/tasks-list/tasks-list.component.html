@@ -1,5 +1,9 @@
 
+<!-- Spinner background  -->
+<div class="spinner"  *ngIf="isLoading$ | async">
+    <app-spinner></app-spinner>
+</div>
 <div class="todos">
-    <h2 class="empty-container" *ngIf="todos.length < 1">No Tasks available!</h2>
+    <h2 class="empty-container" *ngIf="todos.length < 1 && (!isLoading$)">No Tasks available!</h2>
     <app-task *ngFor="let todo of todos | filterByName: searchTerm" [todo]="todo"></app-task>
 </div>

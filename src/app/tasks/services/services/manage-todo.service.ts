@@ -51,16 +51,6 @@ export class ManageTodoService {
       )
   }
 
-    // getTodoByName(todo: Todo):Todo {
-    //   const index = this.todos.indexOf(todo);
-    //   return this.todos[index];
-    // }
-
-    // getTodoById(todoId: string){
-    //   const todoUrl = `${this.baseUrl}/${todoId}.json`;
-    //   return this.http.get(todoUrl)
-    // }
-
   getTodosByStatus(status: string):Todo[]{
     this.todos = [...this.todos].filter((sts) => {
       return sts.status === status;

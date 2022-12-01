@@ -4,10 +4,12 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { HeaderComponent } from './header/header.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -15,6 +17,6 @@ import { HeaderComponent } from './header/header.component';
     RouterModule,
     FormsModule,
   ],
-  exports: [HeaderComponent]
+  exports: [HeaderComponent, SpinnerComponent]
 })
 export class CoreModule { }
