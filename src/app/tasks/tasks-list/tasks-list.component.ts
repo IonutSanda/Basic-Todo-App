@@ -28,13 +28,9 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.todoService.getCurrentTodo();
     this.filterTodos();
     this.todosSubscription = this.todoService.getTodos().subscribe(() => {
-      // this.todos = todos
       this.filterTodos();
       this.loadingService.hideLoading();
     });
-    // this.todoSubscription = this.todoService.todoObs.subscribe(() => {
-    //   this.filterTodos();
-    // });
     this.filterTodos();
     this.searchTermSubscription = this.todoService.searchTermObs.subscribe((searchTerm) => {
       this.searchTerm = searchTerm;

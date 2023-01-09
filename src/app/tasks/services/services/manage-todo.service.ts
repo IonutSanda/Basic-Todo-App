@@ -57,18 +57,9 @@ export class ManageTodoService {
   }
 
   getCurrentTodo():Todo {
-  // getCurrentTodo():void{
     this.currentTodoObs.subscribe((todo) => {
       this.editTodo = todo;
     })
-    // this.currentTodo.subscribe((todo) => {
-    //   console.log('getcurrenttodo');
-    //   console.log(todo);
-    //   this.editTodo = todo
-    //   console.log('edit todo');
-    //   console.log(this.editTodo);
-    // });
-    // // this.currentTodoObs.subscribe((todo) => this.editTodo = todo);
     return this.editTodo;
   }
 

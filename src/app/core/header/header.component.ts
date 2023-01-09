@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnDestroy } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { debounce, interval, Subscription } from 'rxjs';
@@ -10,7 +11,7 @@ import { ManageTodoService } from '../../tasks/services/services/manage-todo.ser
 })
 export class HeaderComponent implements OnDestroy{
 
-  constructor(private todoService: ManageTodoService) { }
+  constructor(private todoService: ManageTodoService, private router: Router) { }
 
   searchTermObs = new Subscription();
   searchTerm: FormGroup = new FormGroup({searchTermInput: new FormControl()});
@@ -20,9 +21,14 @@ export class HeaderComponent implements OnDestroy{
       this.todoService.searchTerm(data.searchTermInput);
     })
   }
+  
+  onResetField():void{
+    this.searchTerm.reset();
+  }
 
   ngOnDestroy(): void {
-      this.searchTermObs.unsubscribe();
+    this.searchTermObs.unsubscribe();
   }
+  
 
 }
