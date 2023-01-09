@@ -1,4 +1,3 @@
-import { RegisterComponent } from './auth/register/register.component';
 import {
   TasksListComponent
 } from './tasks/tasks-list/tasks-list.component';
@@ -9,21 +8,17 @@ import {
   RouterModule,
   Routes
 } from '@angular/router';
-import { LoginComponent } from './auth/login/login.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'authenticate',
     pathMatch: 'full'
   },
   {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
+    path: 'authenticate',
+    component: AuthComponent
   },
   {
     path: 'todos',
@@ -32,7 +27,8 @@ const routes: Routes = [
   },
   {
     path: '**',
-    component: LoginComponent
+    redirectTo: 'authenticate',
+    pathMatch: 'full',
   }
   
 

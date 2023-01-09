@@ -1,10 +1,13 @@
-import { LoginComponent } from './../auth/login/login.component';
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { TaskEditComponent } from './task-edit/task-edit.component';
 import { TasksListComponent } from './tasks-list/tasks-list.component';
 
 const routes: Routes = [
+  {
+    path: 'todos',
+    component: TasksListComponent
+  },
   {
     path: 'open',
     component: TasksListComponent,
