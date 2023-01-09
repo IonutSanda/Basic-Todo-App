@@ -1,3 +1,4 @@
+import { RegisterComponent } from './auth/register/register.component';
 import {
   TasksListComponent
 } from './tasks/tasks-list/tasks-list.component';
@@ -8,17 +9,31 @@ import {
   RouterModule,
   Routes
 } from '@angular/router';
+import { LoginComponent } from './auth/login/login.component';
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
     path: '',
-    redirectTo: 'open',
+    redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
   },
   {
     path: 'todos',
     component: TasksListComponent,
     loadChildren: () => import('./tasks/tasks.module').then((m) => m.TasksModule),
   },
+  {
+    path: '**',
+    component: LoginComponent
+  }
   
 
 ];
