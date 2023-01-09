@@ -1,9 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { ThisReceiver } from '@angular/compiler';
 import {
   Injectable
 } from '@angular/core';
-import { provideProtractorTestingSupport } from '@angular/platform-browser';
 import {
   BehaviorSubject, map, Observable, Subject
 } from 'rxjs';
@@ -59,7 +57,18 @@ export class ManageTodoService {
   }
 
   getCurrentTodo():Todo {
-    this.currentTodo.subscribe((todo) => this.editTodo = todo);
+  // getCurrentTodo():void{
+    this.currentTodoObs.subscribe((todo) => {
+      this.editTodo = todo;
+    })
+    // this.currentTodo.subscribe((todo) => {
+    //   console.log('getcurrenttodo');
+    //   console.log(todo);
+    //   this.editTodo = todo
+    //   console.log('edit todo');
+    //   console.log(this.editTodo);
+    // });
+    // // this.currentTodoObs.subscribe((todo) => this.editTodo = todo);
     return this.editTodo;
   }
 

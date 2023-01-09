@@ -1,3 +1,4 @@
+import { FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
   logInClicked = false;
+  loginForm!: FormGroup;
+  registerForm!: FormGroup;
 
   constructor() { }
 
@@ -15,6 +18,14 @@ export class AuthComponent implements OnInit {
 
   toggleClasses(){
     this.logInClicked = !this.logInClicked;
+  }
+
+  onLoginSubmit(){
+
+  }
+
+  onRegisterSubmit(){
+
   }
 
 }

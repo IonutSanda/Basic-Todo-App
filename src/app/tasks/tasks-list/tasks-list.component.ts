@@ -25,6 +25,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.loadingService.showLoading();
     this.isLoading$ = this.loadingService.loadingObs$;
 
+    this.todoService.getCurrentTodo();
     this.filterTodos();
     this.todosSubscription = this.todoService.getTodos().subscribe(() => {
       // this.todos = todos
@@ -38,6 +39,7 @@ export class TasksListComponent implements OnInit, OnDestroy {
     this.searchTermSubscription = this.todoService.searchTermObs.subscribe((searchTerm) => {
       this.searchTerm = searchTerm;
     });
+    this.todoService.setIsEditMode(false);
   }
 
   ngOnDestroy(): void {

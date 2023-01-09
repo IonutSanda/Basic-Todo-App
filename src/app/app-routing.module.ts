@@ -1,3 +1,4 @@
+import { AuthGuard } from './tasks/services/guards/auth.guard';
 import {
   TasksListComponent
 } from './tasks/tasks-list/tasks-list.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {
     path: 'todos',
     component: TasksListComponent,
+    canActivate: [AuthGuard],
     loadChildren: () => import('./tasks/tasks.module').then((m) => m.TasksModule),
   },
   {

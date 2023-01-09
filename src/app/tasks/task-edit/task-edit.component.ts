@@ -23,7 +23,6 @@ export class TaskEditComponent implements OnInit {
   constructor(private todoService: ManageTodoService, private router: Router) { }
 
   ngOnInit(): void {
-    this.currentTodo = this.todoService.getCurrentTodo();
     this.initForm();
   }
   
@@ -42,6 +41,10 @@ export class TaskEditComponent implements OnInit {
   
   onResetForm():void{
     this.todoForm.reset();
+  }
+
+  onCancelForm():void{
+    this.router.navigate(['/open'])
   }
   
   private initForm():void{

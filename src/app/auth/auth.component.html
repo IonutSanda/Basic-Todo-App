@@ -9,9 +9,9 @@
               <p>
                 Have an account?
               </p>
-              <div class="btn_button" (click)="toggleClasses()">
+              <button type="button" class="btn_button" (click)="toggleClasses()">
                 Log in
-              </div>
+              </button>
             </div>
           </div>
         </div>
@@ -21,37 +21,42 @@
               <p>
                 Don't have an account?
               </p>
-              <div class="btn_button" (click)="toggleClasses()">
+              <button type="button" class="btn_button" (click)="toggleClasses()">
                 Sign up
-              </div>
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div class="container-form">
-        <div class="form-item log-in">
-          <div class="table">
-            <div class="table-cell">
-              <input name="Username" placeholder="Username" type="text" /><input name="Password" placeholder="Password"
-                type="Password" />
-              <div class="btn_button">
-                Log in
+      <form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()">
+          <div class="form-item log-in">
+            <div class="table">
+              <div class="table-cell">
+                <input name="username" placeholder="Username" type="text" formControlName="usernameInput"/>
+                <input name="password" placeholder="password" type="password" formControlName="passwordInput"/>
+                <button type="submit" class="btn_button">
+                  Log in
+                </button>
               </div>
             </div>
           </div>
-        </div>
-        <div class="form-item sign-up">
-          <div class="table">
-            <div class="table-cell">
-              <input name="email" placeholder="Email" type="text" /><input name="fullName" placeholder="Full Name"
-                type="text" /><input name="Username" placeholder="Username" type="text" /><input name="Password"
-                placeholder="Password" type="Password" />
-              <div class="btn_button">
-                Sign up
+      </form>
+      <form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()">
+          <div class="form-item sign-up">
+            <div class="table">
+              <div class="table-cell">
+                <input name="email" placeholder="Email" type="text" formControlName="emailInput"/>
+                <input name="fullName" placeholder="Full Name" type="text" formControlName="fullnameInput"/>
+                <input name="username" placeholder="Username" type="text" formControlName="usernameInput"/>
+                <input name="password" placeholder="Password" type="password" formControlName="passwordInput"/>
+                <button type="submit" class="btn_button">
+                  Sign up
+                </button>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>

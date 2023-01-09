@@ -42,6 +42,12 @@
   transition: all 0.5s;
 }
 
+.btn_button{
+  border: none;
+  display: flex;
+  justify-content: center;
+}
+
 .form_container .box {
   position: absolute;
   left: 0;

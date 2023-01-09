@@ -7,7 +7,8 @@
   </div>
   <div class="actions">
     <button type="submit" class="btn btn-success" [disabled]="!todoForm.valid">{{isEditmode ? 'Update' : 'Save'}}</button>
-    <button type="button" class="btn btn-secondary" (click)="onResetForm()">Reset</button>
+    <button type="button" class="btn btn-danger" (click)="onCancelForm()">Cancel</button>
+    <button *ngIf="isEditmode" type="button" class="btn btn-secondary" (click)="onResetForm()">Reset</button>
   </div>
 </form>
 
