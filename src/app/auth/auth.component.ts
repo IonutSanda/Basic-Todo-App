@@ -28,7 +28,7 @@ export class AuthComponent implements OnInit {
   }
 
   onRegisterSubmit(){
-    // if(!this.registerForm.valid){return;}
+    if(!this.registerForm.valid){return;}
     const email = this.registerForm.value.emailInput;
     const password = this.registerForm.value.passwordInput;
     // if(this.logInClicked){
