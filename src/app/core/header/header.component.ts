@@ -20,6 +20,7 @@ export class HeaderComponent implements OnDestroy{
     this.searchTermObs = this.searchTerm.valueChanges.pipe(debounce(() => interval(300))).subscribe((data) => {
       this.todoService.searchTerm(data.searchTermInput);
     })
+    this.router.events.subscribe(() => this.searchTerm.reset())
   }
   
   onResetField():void{
